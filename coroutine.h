@@ -29,7 +29,7 @@ public:
     void resume();
     static void corouFunc();        // 协程入口函数，包裹回调函数m_cb
     static void setThis(Coroutine* cptr);      // 将this指针设置为正在运行的协程指针
-    static Coroutine::ptr getThis();        // 获取正在运行的协程的this指针
+    static Coroutine::ptr getThis();        // 获取正在运行的协程的指针，即当前实例的this指针
     static void initCallerCorou();
 private:
     ucontext_t m_ctx;       // 协程山下文
