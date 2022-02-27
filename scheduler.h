@@ -41,9 +41,9 @@ public:
         Worker(Scheduler* sc);
         void operator()();
     private:
-        Scheduler* m_scheduler;
-        int worker_id;
-        CallerCoroutine::ptr m_caller=nullptr;
+        Scheduler* m_scheduler;     // 线程所属调度器
+        int worker_id;      // 线程id
+        CallerCoroutine::ptr m_caller=nullptr;      // 指定调度协程
     };
 protected:
     virtual void idle();        // 阻塞线程
