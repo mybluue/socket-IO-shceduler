@@ -15,7 +15,7 @@ enum Event {
     READ = 0x1,
     WRITE = 0x4,
 };
-class SocketContext {
+class SocketContext {       // 套接字对应的IO事件和处理协程
 public:
     int fd;
     Event events;
@@ -46,7 +46,7 @@ protected:
 private:
     int m_epfd = 0;     // epoll描述符
     int m_tickleFds[2];     // 管道
-    std::unordered_map<int, SocketContext*> m_sockContexts;
+    std::unordered_map<int, SocketContext*> m_sockContexts;     // IO事件，与epoll监控同步更新
     std::mutex m_mtx;       // 保证添加删除事件是线程安全的
 };
 
