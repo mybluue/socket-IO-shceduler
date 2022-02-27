@@ -7,7 +7,7 @@
 
 #define DEFAULT_SIZE (1024*1024)        // 协程栈默认大小
 
-class Scheduler;
+class Scheduler;        // 声明Scheduler，Coroutine中声明其为友元类，避免交叉include
 
 class Coroutine :public std::enable_shared_from_this<Coroutine> {       // 协程实例由智能指针管理时，安全地将this指针传递给外部
     friend class Scheduler;
@@ -39,7 +39,8 @@ private:
     std::function<void()> m_cb;     // 回调函数
 };
 
-class CallerCoroutine {
+
+class CallerCoroutine {     // 线程的主协程--调度协程
 public:
     typedef std::shared_ptr<CallerCoroutine> ptr;
 public:
@@ -51,8 +52,5 @@ public:
     }
     ucontext_t caller_ctx;
 };
-
-
-
 
 #endif
