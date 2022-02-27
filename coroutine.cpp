@@ -4,13 +4,11 @@
 #include <iostream>
 #include <errno.h>
 
+static int s_corou_id = 0;      // 用于初始化协程实例的id
 
+thread_local CallerCoroutine::ptr t_thread_corou(new CallerCoroutine);      // 当前线程的调度协程，也即主协程
 
-static int s_corou_id = 0;
-
-thread_local CallerCoroutine::ptr t_thread_corou(new CallerCoroutine);
-// static thread_local ucontext_t thread_ctx;
-thread_local Coroutine* t_running_corou = nullptr;
+thread_local Coroutine* t_running_corou = nullptr;      // 当前线程正在执行的协程
 
 Coroutine::Coroutine() {
     // m_state = RUNNING;
@@ -63,7 +61,6 @@ void Coroutine::resume() {
 }
 
 void Coroutine::setThis(Coroutine* cptr) {
-    // t_thread_corou = cptr;
     t_running_corou = cptr;
 }
 
